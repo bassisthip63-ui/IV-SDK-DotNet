@@ -76,6 +76,11 @@ namespace CLR
 		Logger::Log(String::Format("IV-SDK .NET Release version {0} by ItsClonkAndre", Version));
 #endif
 
+		// Added 2026-10-27 by bassisthip63-ui: make it clear in every log that this is not an official build
+#ifdef IVSDK_GTAIV_12059
+		Logger::Log("UNOFFICIAL BETA build for GTA IV 1.2.0.59 (fork by bassisthip63-ui, https://github.com/bassisthip63-ui/IV-SDK-DotNet). Not supported by ItsClonkAndre: please report problems to the fork.");
+#endif
+
 		// Launch debugger
 		if (Settings->GetBoolean("DEBUG", "LaunchDebugger", false))
 			Debugger::Launch();

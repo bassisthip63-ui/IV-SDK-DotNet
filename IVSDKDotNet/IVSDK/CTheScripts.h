@@ -20,13 +20,29 @@ public:
 		uint32_t funcPtr = AddressSetter::Get("CTheScripts", "FindNativeAddress");
 		
 		uint32_t nativePtr;
-		_asm
+
+		// Modified 2026-10-27 by bassisthip63-ui (IV-SDK .NET Unofficial Beta for GTA IV 1.2.0.59):
+		// on 1.2.0.59 the game's FindNativeAddress takes the native hash on the stack (and removes it with "ret 4")
+		// instead of in ESI like 1.0.7.0 / 1.0.8.0. Checked at run time, so other versions are unaffected.
+		if (plugin::gameVer == plugin::VERSION_12059)
 		{
-			push esi
-			mov esi, nativeHash
-			call funcPtr
-			pop esi
-			mov nativePtr, eax
+			_asm
+			{
+				push nativeHash
+				call funcPtr
+				mov nativePtr, eax
+			}
+		}
+		else
+		{
+			_asm
+			{
+				push esi
+				mov esi, nativeHash
+				call funcPtr
+				pop esi
+				mov nativePtr, eax
+			}
 		}
 
 		return nativePtr;

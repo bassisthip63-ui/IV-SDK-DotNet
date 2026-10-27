@@ -2,6 +2,9 @@
 #define VALIDATE_OFFSET(struc, member, offset) \
 	static_assert(offsetof(struc, member) == offset, "The offset of " #member " in " #struc " is not " #offset "...")
 
+// Modified 2026-10-27 by bassisthip63-ui (IV-SDK .NET Unofficial Beta for GTA IV 1.2.0.59): includes IVSDK12059.h.
+#include "IVSDK12059.h"
+
 #ifndef INCLUDE_GUARD
 #define INCLUDE_GUARD
 

@@ -10,16 +10,16 @@ public:
 	char m_sName[20];													// 04C-060
 	uint8_t pad2[0x390];												// 060-3F0
 	CPed* m_pPlayerPed2;												// 3F0-3F4
-	uint8_t pad3[0x20];													// 3F4-414
+	uint8_t pad3[IVSDK_12059_OR(0x20, 0x30)];								// 3F4-414 (1.2.0.59: 3F4-424, IVSDK_GTAIV_12059)
 	float m_fStamina;													// 414-418
-	uint8_t pad3_[0x7C];												// 418-494
+	uint8_t pad3_[IVSDK_12059_OR(0x7C, 0x6C)];								// 418-494 (1.2.0.59: 428-494; the timers below are NOT verified on 1.2.0.59)
 	uint32_t m_nLastHitPedTime;											// 494-498
 	uint32_t m_nLastHitBuildingTime;									// 498-49C
 	uint32_t m_nLastHitObjectTime;										// 49C-4A0
 	uint32_t m_nLastDroveOnPavementTime;								// 4A0-4A4
 	uint32_t m_nLastRanLightTime;										// 4A4-4A8
 	uint32_t m_nLastDroveAgainstTrafficTime;							// 4A8-4AC
-	uint8_t pad4[0x10];													// 4AC-4BC
+	uint8_t pad4[IVSDK_12059_OR(0x10, 0x1C)];								// 4AC-4BC (1.2.0.59: 4AC-4C8, everything below +0xC)
 	uint32_t m_nControlFlags;											// 4BC-4C0
 	uint8_t pad5[0x1A];													// 4AC-4DA
 	uint8_t m_nPlayerId;												// 4DA-4DB
@@ -59,6 +59,27 @@ public:
 		((void(__thiscall*)(CPlayerInfo*))(AddressSetter::Get("CPlayerInfo", "KillPlayerOutsideWorld")))(this);
 	}
 };
+#ifdef IVSDK_GTAIV_12059
+// GTA IV 1.2.0.59 offsets (IVSDK_GTAIV_12059, added 2026-10-27 by bassisthip63-ui)
+// (the total size on 1.2.0.59 is not known, so it is not checked here)
+VALIDATE_OFFSET(CPlayerInfo, m_pPlayerPed2, 0x3F0);       // not verified on 1.2.0.59
+VALIDATE_OFFSET(CPlayerInfo, m_fStamina, 0x424);
+VALIDATE_OFFSET(CPlayerInfo, m_sName, 0x4C);
+VALIDATE_OFFSET(CPlayerInfo, m_nLastHitPedTime, 0x494);   // not verified on 1.2.0.59
+VALIDATE_OFFSET(CPlayerInfo, m_nControlFlags, 0x4C8);
+VALIDATE_OFFSET(CPlayerInfo, m_nPlayerId, 0x4E6);
+VALIDATE_OFFSET(CPlayerInfo, m_nState, 0x4E8);
+VALIDATE_OFFSET(CPlayerInfo, m_nNeverTired, 0x552);
+VALIDATE_OFFSET(CPlayerInfo, m_nMaxHealth, 0x556);
+VALIDATE_OFFSET(CPlayerInfo, m_nMaxArmor, 0x558);
+VALIDATE_OFFSET(CPlayerInfo, m_nCanDoDriveby, 0x55C);
+VALIDATE_OFFSET(CPlayerInfo, m_nMood, 0x568);
+VALIDATE_OFFSET(CPlayerInfo, m_nColour, 0x57C);
+VALIDATE_OFFSET(CPlayerInfo, m_nTeam, 0x580);
+VALIDATE_OFFSET(CPlayerInfo, m_nHasDiedRecently, 0x58C);
+VALIDATE_OFFSET(CPlayerInfo, m_pPlayerPed, 0x598);
+VALIDATE_OFFSET(CPlayerInfo, m_pOnlyEnterThisVehicle, 0x5A0);
+#else
 VALIDATE_SIZE(CPlayerInfo, 0x5C0);
 VALIDATE_OFFSET(CPlayerInfo, m_fStamina, 0x414);
 VALIDATE_OFFSET(CPlayerInfo, m_sName, 0x4C);
@@ -72,6 +93,7 @@ VALIDATE_OFFSET(CPlayerInfo, m_nMood, 0x55C);
 VALIDATE_OFFSET(CPlayerInfo, m_nTeam, 0x574);
 VALIDATE_OFFSET(CPlayerInfo, m_pPlayerPed, 0x58C);
 VALIDATE_OFFSET(CPlayerInfo, m_nControlFlags, 0x4BC);
+#endif
 
 inline CVector& FindPlayerCentreOfWorld(CVector* v)
 {

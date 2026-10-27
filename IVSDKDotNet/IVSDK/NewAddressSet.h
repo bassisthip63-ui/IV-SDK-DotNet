@@ -179,6 +179,24 @@ namespace AddressSetter
 		return *reinterpret_cast<T*>(nullptr);
 	}
 
+	// Added 2026-10-27 by bassisthip63-ui (IV-SDK .NET Unofficial Beta for GTA IV 1.2.0.59):
+	// like GetRef(addr1070, addr1080), with an address for 1.2.0.59 as well
+	template<typename T>
+	static inline T& GetRef(uint32_t addr1070, uint32_t addr1080, uint32_t addr12059)
+	{
+		if (!bAddressesRead)
+			Init();
+
+		switch(plugin::gameVer)
+		{
+			case plugin::VERSION_12059: return *reinterpret_cast<T*>(gBaseAddress + addr12059);
+			case plugin::VERSION_1080: return *reinterpret_cast<T*>(gBaseAddress + addr1080);
+			case plugin::VERSION_1070: return *reinterpret_cast<T*>(gBaseAddress + addr1070);
+		}
+
+		return *reinterpret_cast<T*>(nullptr);
+	}
+
 	template<typename T>
 	static inline T& GetRef(uint32_t addr)
 	{

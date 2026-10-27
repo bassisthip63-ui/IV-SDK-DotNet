@@ -223,7 +223,7 @@ class CVehicle : public CPhysical
 {
 public:
 																		// 0000-0210
-	uint8_t pad[0x9D];													// 0210-02AD
+	uint8_t pad[IVSDK_12059_OR(0x9D, 0x4D)];									// 0210-02AD (1.2.0.59: 0210-025D, so every field below is -0x50; IVSDK_GTAIV_12059)
 	/*
 	pad[0] = integer size 4
 	pad[4] = cd size 60
@@ -652,36 +652,36 @@ public:
 		return ((bool(__cdecl*)(int32_t))(AddressSetter::Get("CVehicle", "UsesSiren")))(id);
 	}
 };
-VALIDATE_SIZE(CVehicle, 0x20D0);
-VALIDATE_OFFSET(CVehicle, m_fEngineRPM, 0x688);
-VALIDATE_OFFSET(CVehicle, m_nDoorLock, 0x1320);
-VALIDATE_OFFSET(CVehicle, m_nVehicleType, 0x1354);
-VALIDATE_OFFSET(CVehicle, m_fLightMult, 0x1330);
-VALIDATE_OFFSET(CVehicle, m_nHornCounter, 0x133C);
-VALIDATE_OFFSET(CVehicle, m_nVehicleFlags, 0xF64);
-VALIDATE_OFFSET(CVehicle, m_nVehicleFlags2, 0xF68);
-VALIDATE_OFFSET(CVehicle, m_nVehicleFlags3, 0xF6C);
-VALIDATE_OFFSET(CVehicle, m_nVehicleFlags4, 0xF70);
-VALIDATE_OFFSET(CVehicle, m_nCreatedBy, 0x1108);
-VALIDATE_OFFSET(CVehicle, m_pVehicleFragInst, 0xE14);
-VALIDATE_OFFSET(CVehicle, m_nRespotTimer, 0x1114);
-VALIDATE_OFFSET(CVehicle, m_fDirtLevel, 0x1118);
-VALIDATE_OFFSET(CVehicle, m_fDeformationMult, 0x132C);
-VALIDATE_OFFSET(CVehicle, m_pDriver, 0xFA0);
-VALIDATE_OFFSET(CVehicle, m_nPrimaryColor, 0xFE4);
-VALIDATE_OFFSET(CVehicle, m_nMaxPassengers, 0x10C0);
-VALIDATE_OFFSET(CVehicle, m_fGasPedal, 0x10C8); // 4296
-VALIDATE_OFFSET(CVehicle, m_nCurrentGear, 0x10E0);
-VALIDATE_OFFSET(CVehicle, m_fEngineHealth, 0x10FC);
-VALIDATE_OFFSET(CVehicle, m_fPetrolTankHealth, 0x1128);
-VALIDATE_OFFSET(CVehicle, m_pHandling, 0xE18);
-VALIDATE_OFFSET(CVehicle, m_pDoors, 0xFD8);
-VALIDATE_OFFSET(CVehicle, m_fEngineRevs, 0x10E4);
-VALIDATE_OFFSET(CVehicle, m_nLights, 0x11E0);
-VALIDATE_OFFSET(CVehicle, m_nSirens, 0x11F0);
-VALIDATE_OFFSET(CVehicle, m_fPlaneTurn, 0x1F00);
-VALIDATE_OFFSET(CVehicle, m_fPlaneUpDown, 0x1F04);
-VALIDATE_OFFSET(CVehicle, m_fPlaneRotate, 0x1F08);
-VALIDATE_OFFSET(CVehicle, m_fPlaneThrust, 0x1F0C);
-VALIDATE_OFFSET(CVehicle, m_fPlanePropSpeed, 0x1F3C);
-VALIDATE_OFFSET(CVehicle, m_nAbsFlags, 0xFE0);
+VALIDATE_SIZE(CVehicle, IVSDK_12059_OR(0x20D0, 0x2080));
+VALIDATE_OFFSET(CVehicle, m_fEngineRPM, IVSDK_12059_OR(0x688, 0x638));
+VALIDATE_OFFSET(CVehicle, m_nDoorLock, IVSDK_12059_OR(0x1320, 0x12D0));
+VALIDATE_OFFSET(CVehicle, m_nVehicleType, IVSDK_12059_OR(0x1354, 0x1304));
+VALIDATE_OFFSET(CVehicle, m_fLightMult, IVSDK_12059_OR(0x1330, 0x12E0));
+VALIDATE_OFFSET(CVehicle, m_nHornCounter, IVSDK_12059_OR(0x133C, 0x12EC));
+VALIDATE_OFFSET(CVehicle, m_nVehicleFlags, IVSDK_12059_OR(0xF64, 0xF14));
+VALIDATE_OFFSET(CVehicle, m_nVehicleFlags2, IVSDK_12059_OR(0xF68, 0xF18));
+VALIDATE_OFFSET(CVehicle, m_nVehicleFlags3, IVSDK_12059_OR(0xF6C, 0xF1C));
+VALIDATE_OFFSET(CVehicle, m_nVehicleFlags4, IVSDK_12059_OR(0xF70, 0xF20));
+VALIDATE_OFFSET(CVehicle, m_nCreatedBy, IVSDK_12059_OR(0x1108, 0x10B8));
+VALIDATE_OFFSET(CVehicle, m_pVehicleFragInst, IVSDK_12059_OR(0xE14, 0xDC4));
+VALIDATE_OFFSET(CVehicle, m_nRespotTimer, IVSDK_12059_OR(0x1114, 0x10C4));
+VALIDATE_OFFSET(CVehicle, m_fDirtLevel, IVSDK_12059_OR(0x1118, 0x10C8));
+VALIDATE_OFFSET(CVehicle, m_fDeformationMult, IVSDK_12059_OR(0x132C, 0x12DC));
+VALIDATE_OFFSET(CVehicle, m_pDriver, IVSDK_12059_OR(0xFA0, 0xF50));
+VALIDATE_OFFSET(CVehicle, m_nPrimaryColor, IVSDK_12059_OR(0xFE4, 0xF94));
+VALIDATE_OFFSET(CVehicle, m_nMaxPassengers, IVSDK_12059_OR(0x10C0, 0x1070));
+VALIDATE_OFFSET(CVehicle, m_fGasPedal, IVSDK_12059_OR(0x10C8, 0x1078)); // 4296
+VALIDATE_OFFSET(CVehicle, m_nCurrentGear, IVSDK_12059_OR(0x10E0, 0x1090));
+VALIDATE_OFFSET(CVehicle, m_fEngineHealth, IVSDK_12059_OR(0x10FC, 0x10AC));
+VALIDATE_OFFSET(CVehicle, m_fPetrolTankHealth, IVSDK_12059_OR(0x1128, 0x10D8));
+VALIDATE_OFFSET(CVehicle, m_pHandling, IVSDK_12059_OR(0xE18, 0xDC8));
+VALIDATE_OFFSET(CVehicle, m_pDoors, IVSDK_12059_OR(0xFD8, 0xF88));
+VALIDATE_OFFSET(CVehicle, m_fEngineRevs, IVSDK_12059_OR(0x10E4, 0x1094));
+VALIDATE_OFFSET(CVehicle, m_nLights, IVSDK_12059_OR(0x11E0, 0x1190));
+VALIDATE_OFFSET(CVehicle, m_nSirens, IVSDK_12059_OR(0x11F0, 0x11A0));
+VALIDATE_OFFSET(CVehicle, m_fPlaneTurn, IVSDK_12059_OR(0x1F00, 0x1EB0));
+VALIDATE_OFFSET(CVehicle, m_fPlaneUpDown, IVSDK_12059_OR(0x1F04, 0x1EB4));
+VALIDATE_OFFSET(CVehicle, m_fPlaneRotate, IVSDK_12059_OR(0x1F08, 0x1EB8));
+VALIDATE_OFFSET(CVehicle, m_fPlaneThrust, IVSDK_12059_OR(0x1F0C, 0x1EBC));
+VALIDATE_OFFSET(CVehicle, m_fPlanePropSpeed, IVSDK_12059_OR(0x1F3C, 0x1EEC));
+VALIDATE_OFFSET(CVehicle, m_nAbsFlags, IVSDK_12059_OR(0xFE0, 0xF90));

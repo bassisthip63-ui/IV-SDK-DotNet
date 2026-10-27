@@ -251,11 +251,29 @@ public:																	// 000-210
 	uint8_t pad6[0x8];													// 270-278
 	float m_fClimbAnimRate;												// 278-27C
 	uint8_t pad7[0x34];													// 27C-2B0
+#ifdef IVSDK_GTAIV_12059
+	// GTA IV 1.2.0.59 layout (IVSDK_GTAIV_12059, added 2026-10-27 by bassisthip63-ui):
+	// ShootRate/Accuracy sit at 0x370/0x371 and everything from 0x3A8 on moved by -0x10. That means the weapon data
+	// before them is 0x18 bytes shorter in 1.2.0.59; its internal layout has not been verified, so PedWeapons is kept
+	// as it is (exactly like the tested binary build) and ShootRate/Accuracy share its last bytes here.
+	union
+	{
+		PedWeapons m_pWeaponData;										// 2B0-37C
+		struct
+		{
+			uint8_t pad8_12059[0xC0];									// 2B0-370
+			uint8_t m_nShootRate;										// 370-371
+			uint8_t m_nAccuracy;										// 371-372
+		};
+	};
+	uint8_t pad9[0xF8];													// 37C-474
+#else
 	PedWeapons m_pWeaponData;											// 2B0-37C
 	uint8_t pad8[0xC];													// 37C-388
 	uint8_t m_nShootRate;												// 388-389
 	uint8_t m_nAccuracy;												// 389-38A
 	uint8_t pad9[0xFA];													// 38A-484
+#endif
 	CEntity* m_pStandingOnEntity;										// 484-488
 	uint8_t pad10[0x194];												// 488-61C
 	
@@ -352,6 +370,29 @@ public:																	// 000-210
 };
 
 
+
+#ifdef IVSDK_GTAIV_12059
+// GTA IV 1.2.0.59 offsets (IVSDK_GTAIV_12059, added 2026-10-27 by bassisthip63-ui), the ones the tested build uses
+VALIDATE_OFFSET(CPed, m_pWeaponData, 0x2B0);
+VALIDATE_OFFSET(CPed, m_nShootRate, 0x370);
+VALIDATE_OFFSET(CPed, m_nAccuracy, 0x371);
+VALIDATE_OFFSET(CPed, m_pStandingOnEntity, 0x474);
+VALIDATE_OFFSET(CPed, m_nVoiceHash, 0x60C);
+VALIDATE_OFFSET(CPed, m_nPedFlags4, 0x770);
+VALIDATE_OFFSET(CPed, m_pCollider, 0x7AC);
+VALIDATE_OFFSET(CPed, m_nRagdollStatus, 0x7B8);
+VALIDATE_OFFSET(CPed, m_nRagdollTime, 0x7BC);
+VALIDATE_OFFSET(CPed, m_nWeaponObjectVisible, 0x7E1);
+VALIDATE_OFFSET(CPed, m_nCreatedBy, 0xA60);
+VALIDATE_OFFSET(CPed, m_nDeathState, 0xA74);
+VALIDATE_OFFSET(CPed, m_pPedMoveBlendOnFoot, 0xA80);
+VALIDATE_OFFSET(CPed, m_fMaxHealth, 0xA84);
+VALIDATE_OFFSET(CPed, m_fCurrentHeading, 0xAA0);
+VALIDATE_OFFSET(CPed, m_fDesiredHeading, 0xAA4);
+VALIDATE_OFFSET(CPed, m_pVehicle, 0xB30);
+VALIDATE_OFFSET(CPed, m_nUnkPlayerSettingsRelated, 0xE70);
+VALIDATE_OFFSET(CPed, m_pComponentModels, 0xE98);
+#endif
 
 //VALIDATE_SIZE(CPed, 0xF00);
 //VALIDATE_OFFSET(CPed, m_pCollider, 0x7BC);
