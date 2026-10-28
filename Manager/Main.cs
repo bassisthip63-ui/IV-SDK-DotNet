@@ -68,6 +68,7 @@ namespace Manager
 
         private bool isShuttingDown;
         private bool wasLoadingMessageShown;
+        private DateTime scriptConstructReadySince; // [Unofficial 1.2.0.59 beta, 2026-10-28] see ShouldConstructScriptsNow
         private bool allowDrawing;
         public bool FirstFrame = true;
         public bool IsGTAIVWindowInFocus;
@@ -358,7 +359,7 @@ namespace Manager
             // ManagedNativeCaller.Call<uint>((uint)eNativeHash.NATIVE_PRINT_STRING_WITH_LITERAL_STRING_NOW, (NativeArg)"STRING", (NativeArg)"Test!", (NativeArg)(uint)1000, (NativeArg)true);
             
             // Start constructing all scripts
-            if (!wasLoadingMessageShown && !Natives.IS_SCREEN_FADED_OUT() && !ScriptManager.AreAllScriptsConstructed())
+            if (!wasLoadingMessageShown && ShouldConstructScriptsNow() && !ScriptManager.AreAllScriptsConstructed())
             {
                 wasLoadingMessageShown = true;
 
@@ -572,9 +573,36 @@ namespace Manager
 
             SHDNManager.OnBeforeNewImGuiFrame();
         }
+        // [Unofficial 1.2.0.59 beta, 2026-10-28] The game is paused and a loading screen is forced while the
+        // ScriptHookDotNet scripts construct. That used to start at the first frame the screen was not fully black,
+        // which in a NEW game is the middle of the intro mission's fade-in from the cutscene to the car, and the game
+        // froze there. Now it waits until the screen is not faded or fading at all and the player has control,
+        // and that has stayed true for 2 seconds. Loading a save is unchanged apart from the short wait.
+        private bool ShouldConstructScriptsNow()
+        {
+            bool ready = !Natives.IS_SCREEN_FADED_OUT() && !Natives.IS_SCREEN_FADING();
+            if (ready)
+            {
+                try { ready = Natives.IS_PLAYER_CONTROL_ON(Natives.CONVERT_INT_TO_PLAYERINDEX(Natives.GET_PLAYER_ID())); }
+                catch { }
+            }
+
+            if (!ready)
+            {
+                scriptConstructReadySince = DateTime.MinValue;
+                return false;
+            }
+
+            if (scriptConstructReadySince == DateTime.MinValue)
+                scriptConstructReadySince = DateTime.UtcNow;
+
+            return (DateTime.UtcNow - scriptConstructReadySince).TotalSeconds >= 2d;
+        }
+
         public override void RaiseIngameStartup()
         {
             wasLoadingMessageShown = false;
+            scriptConstructReadySince = DateTime.MinValue;
 
             if (Config.ReloadScriptsOnReload)
                 ScriptManager.LoadIVSDKDotNetScripts();
