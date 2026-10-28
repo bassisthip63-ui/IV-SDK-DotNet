@@ -7,6 +7,9 @@
 > It is not made or supported by ItsClonkAndre. Please report problems with it [here](https://github.com/bassisthip63-ui/IV-SDK-DotNet/issues), not to him.
 > What was changed, why, and how to build and install it: **[UNOFFICIAL-1.2.0.59.md](UNOFFICIAL-1.2.0.59.md)**.
 >
+> ### ⬇️ [DOWNLOAD THE 1.2.0.59 BETA HERE](https://github.com/bassisthip63-ui/IV-SDK-DotNet/releases)
+> The download has two files to copy into your game: `IVSDKDotNetWrapper.dll` (next to `IVSDKDotNet.asi`) and `IVSDK\12059.ini` (into the `IVSDK` folder).
+>
 > **NOTE: YOU NEED TO INSTALL THE OFFICIAL IV-SDK .NET PACKAGE FOR 1.0.7.0 / 1.0.8.0 BELOW FIRST and then replace the original IVSDKDotNetWrapper.dll with the one from this Unofficial BETA for 1.2.0.59 Support.**
 > 
 > **For GTA IV 1.0.7.0 / 1.0.8.0, use the official IV-SDK .NET: https://github.com/ClonkAndre/IV-SDK-DotNet**

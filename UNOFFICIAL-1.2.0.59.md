@@ -46,6 +46,7 @@ Every changed spot in the source is marked with a dated comment. In short:
 
 How the 1.2.0.59 layouts were found: by comparing the game's own native functions between the two executables (about
 280 field accesses, about 60 for CVehicle, 30 for CPed and 20 for CPlayerInfo, none disagreeing), plus checks by hand.
+The tools used for the offset matching are published separately: [GTAIV-OffsetMapper](https://github.com/bassisthip63-ui/GTAIV-OffsetMapper).
 
 ## Known limits
 
