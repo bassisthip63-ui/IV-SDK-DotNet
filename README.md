@@ -9,7 +9,7 @@
 >
 > **NOTE: YOU NEED TO INSTALL THE OFFICIAL IV-SDK .NET PACKAGE FOR 1.0.7.0 / 1.0.8.0 BELOW FIRST and then replace the original IVSDKDotNetWrapper.dll with the one from this Unofficial BETA for 1.2.0.59 Support.**
 > 
-> For GTA IV 1.0.7.0 / 1.0.8.0, use the official IV-SDK .NET: https://github.com/ClonkAndre/IV-SDK-DotNet
+> **For GTA IV 1.0.7.0 / 1.0.8.0, use the official IV-SDK .NET: https://github.com/ClonkAndre/IV-SDK-DotNet**
 >
 > *README notice added 2026-10-27 by bassisthip63-ui. Everything below is the original README.*
 
